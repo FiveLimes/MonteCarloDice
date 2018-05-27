@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "library(shiny)\nlibrary(tidyverse)\n\nshinyUI(fluidPage(\n  \n  # Application title\n  titlePanel(\"Monte-Carlo Estimate of Expected Value of a Dice Roll\"),\n  \n  # Sidebar with a slider input for number of rolls\n  sidebarLayout(\n    sidebarPanel(\n       textAreaInput(\"Rolls\",\n                   \"How many times do you want to roll?:\",\n                   value = 1)\n    ),\n    \n    # Show expected value based on selected number of rolls\n    mainPanel(\n       textOutput(\"EstExpected\")\n    )\n  )\n))\n",
+    "created" : 1527302130964.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "982385677",
+    "id" : "51B5ABB9",
+    "lastKnownWriteTime" : 1527308233,
+    "last_content_update" : 1527308233216,
+    "path" : "~/MonteCarloMachine-Dice/MonteCarloDice/ui.R",
+    "project_path" : "MonteCarloDice/ui.R",
+    "properties" : {
+        "docOutlineVisible" : "0"
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

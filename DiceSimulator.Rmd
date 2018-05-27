@@ -1,0 +1,92 @@
+---
+title: "MonteCarloDiceSim"
+subtitle: 'A very simlpe Monte-Carlo machine to estimate the expected value of a dice'
+author: "FiveLimes"
+date: "27 May 2018"
+output: html_document
+---
+
+
+
+In the book Fooled by Randomness by Nassim Nicholas Taleb he mentions using a Monte-Carlo Machine to calculate the value of Pi. A Monte-Carlo machine allows many samplings of a random event to observe the range of possible outcomes. To take a simple example the estimated average value of rolling a six sided dice is 3.5 this is easy using maths ((6+5+4+3+2+1)/5). But you can also do it with the Monte-Carlo Machine method. Roll the dice a thousand times adding the number that comes up each time and divide that sum by one thousand will give you a Monte-Carlo estimate of the expected value of the dice. The graph below presents a series of estimates of the expected value of a dice via the Monte Carlo method and rolling the dice different numbers of times. 
+
+```{r setup, include=FALSE, echo = FALSE, warning = FALSE}
+### Loading Library and creating a function DiceSim that rolls a dice rolls amount of times and compares the result to the expected result
+library(tidyverse)
+library(ggthemes)
+
+DiceSim <- function(rolls, expected = 3.5, sides = 1:6) {
+        base::sample(sides, rolls, replace = TRUE) %>%
+        sum() %>%
+        "/"(as.numeric(rolls))
+           }
+
+```
+
+```{r Standard dice using monte carlo method to calculate expected value, message = FALSE, echo = FALSE, warning = FALSE}
+#### Creating 100 data points rolling dice a random number of times from 1 to 10000 and comparing the average value to mathematically expected one. In general the more you roll the more accurate your estimate but note diminishing returns. The line is not straight going from 10 to 100 rolls improves the accurecy of the Monte-Carlo estimate much more than going from 1000 to 1090
+rolls <- seq(1, 1000, 20)
+
+result <- map_dbl(rolls, DiceSim)
+
+g1_data <- data.frame('Rolls' = rolls, 
+                      'Result' = result)
+
+ggplot(g1_data, aes(x = Rolls, y = Result)) +
+geom_point(col = 'lightblue') +
+geom_smooth(col = 'lightgreen') +
+theme_classic() +
+geom_hline(yintercept = 3.5, col = 'orange') +
+geom_label(aes(label = 'Math Expected', x = 900, y =  3.25), col = 'orange') +
+geom_label(aes(label = 'Monte-Carlo Expected', x = 100, y = 3.75), col = 'lightgreen')
+ 
+```
+
+As you can see above you get a pretty good idea of the expected value of the dice via the Monte-Carlo method by about 200 rolls. The SE ribbon doesn't get much narrower after that. But what about a more diabolical dice, one that is not 6 sided with one to six on it. What about one that has 61 sides. first 60 are 1-6 ten times but the last is 1,000,000. How does tho Monte Carlo method work with that? The mathematical expected value is 16,397 how many rolls do you have to do to get a good estimate?
+
+```{r doing it again for a non standard dice, echo = FALSE, warning = FALSE, message = FALSE}
+
+rolls <- seq(1, 1000, 20)
+
+result <- map_dbl(rolls, DiceSim, sides = c(rep(1:6, 10), 1000000))
+
+g2_data <- data.frame('Rolls' = rolls, 
+                      'Result' = result)
+
+ggplot(g2_data, aes(x = Rolls, y = Result)) +
+geom_point(col = 'lightblue') +
+geom_smooth(col = 'lightgreen') +
+theme_classic() +
+geom_hline(yintercept = 16397, col = 'orange') +
+geom_label(aes(label = 'Math Expected', x = 900, y =  15397), col = 'orange') +
+geom_label(aes(label = 'Monte-Carlo Expected', x = 100, y = 30000), col = 'lightgreen')
+
+```
+
+Much broader distribution than previous not much confidence after 1000 rolls. Repeating again with more trials - up to 100,000 rolls. 
+
+```{r running again with diabolical dice but more trials, echo = FALSE, warning = FALSE, message = FALSE}
+
+rolls <- seq(1, 100000, 2000)
+
+result <- map_dbl(rolls, DiceSim, sides = c(rep(1:6, 10), 1000000))
+
+g3_data <- data.frame('Rolls' = rolls, 
+                      'Result' = result)
+
+ggplot(g3_data, aes(x = Rolls, y = Result)) +
+geom_point(col = 'lightblue') +
+geom_smooth(col = 'lightgreen') +
+theme_classic() +
+geom_hline(yintercept = 16397, col = 'orange') +
+geom_label(aes(label = 'Math Expected', x = 90900, y =  15397), col = 'orange') +
+geom_label(aes(label = 'Monte-Carlo Expected', x = 10000, y = 10000), col = 'lightgreen')
+  
+  
+```
+
+Eye balling the above graph means the Monte-Carlo and Math expected values basically match after about 2,500 rolls. So it still works but takes many more iterations. There are a number of scenarios like this described in Nassim Taleb's books. I hope to use them as examples to develop my own Monte-Carlo style understanding of probability.
+
+[Code for all this available via git hub at this address] ()
+
+

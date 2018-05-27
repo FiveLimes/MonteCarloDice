@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "###DeployApp\n\nlibrary(rsconnect)\n\nrsconnect::setAccountInfo(name='five-limes',\n                          token='AEAC0E9FD04550C82311493C887A02D5',\n                           secret='2A5SqTgUhPngxgAT/w8p/MLvvOC884TUAeoy6Hpl')\n\nrsconnect::deployApp(file.path('C:',\n                               'Users',\n                               'Monolith',\n                               'Documents',\n                               'MonteCarloMachine-Dice',\n                               'MonteCarloDice'))",
+    "created" : 1527308375648.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2601436468",
+    "id" : "741A2C8D",
+    "lastKnownWriteTime" : 1527309026,
+    "last_content_update" : 1527309026910,
+    "path" : "~/MonteCarloMachine-Dice/DeployApp.R",
+    "project_path" : "DeployApp.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

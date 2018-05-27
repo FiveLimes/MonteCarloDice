@@ -1,0 +1,8 @@
+"0","### Loading Library and creating a function DiceSim that rolls a dice rolls amount of times and compares the result to the expected result"
+"0","library(tidyverse)"
+"0","library(ggthemes)"
+"0","DiceSim <- function(rolls, expected = 3.5, sides = 1:6) {"
+"0","        base::sample(sides, rolls, replace = TRUE) %>%"
+"0","        sum() %>%"
+"0","        ""/""(as.numeric(rolls))"
+"0","           }"

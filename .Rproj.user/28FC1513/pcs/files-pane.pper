@@ -1,0 +1,9 @@
+{
+    "path" : "~/MonteCarloMachine-Dice/MonteCarloDice",
+    "sortOrder" : [
+        {
+            "ascending" : true,
+            "columnIndex" : 2
+        }
+    ]
+}
