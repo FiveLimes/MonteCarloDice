@@ -1,9 +1,11 @@
 ---
 title: "MonteCarloDiceSim"
-subtitle: 'A very simlpe Monte-Carlo machine to estimate the expected value of a dice'
 author: "FiveLimes"
 date: "27 May 2018"
-output: html_document
+output:
+  pdf_document: default
+  html_document: default
+subtitle: A very simple Monte-Carlo machine to estimate the expected value of a dice
 ---
 
 
@@ -14,6 +16,7 @@ In the book Fooled by Randomness by Nassim Nicholas Taleb he mentions using a Mo
 ### Loading Library and creating a function DiceSim that rolls a dice rolls amount of times and compares the result to the expected result
 library(tidyverse)
 library(ggthemes)
+library(knitr)
 
 DiceSim <- function(rolls, expected = 3.5, sides = 1:6) {
         base::sample(sides, rolls, replace = TRUE) %>%
@@ -33,12 +36,10 @@ g1_data <- data.frame('Rolls' = rolls,
                       'Result' = result)
 
 ggplot(g1_data, aes(x = Rolls, y = Result)) +
-geom_point(col = 'lightblue') +
-geom_smooth(col = 'lightgreen') +
+geom_point(col = 'lightgreen') +
 theme_classic() +
 geom_hline(yintercept = 3.5, col = 'orange') +
-geom_label(aes(label = 'Math Expected', x = 900, y =  3.25), col = 'orange') +
-geom_label(aes(label = 'Monte-Carlo Expected', x = 100, y = 3.75), col = 'lightgreen')
+geom_label(aes(label = 'Math Expected', x = 900, y =  3.25), col = 'orange') 
  
 ```
 
@@ -54,12 +55,10 @@ g2_data <- data.frame('Rolls' = rolls,
                       'Result' = result)
 
 ggplot(g2_data, aes(x = Rolls, y = Result)) +
-geom_point(col = 'lightblue') +
-geom_smooth(col = 'lightgreen') +
+geom_point(col = 'lightgreen') +
 theme_classic() +
 geom_hline(yintercept = 16397, col = 'orange') +
-geom_label(aes(label = 'Math Expected', x = 900, y =  15397), col = 'orange') +
-geom_label(aes(label = 'Monte-Carlo Expected', x = 100, y = 30000), col = 'lightgreen')
+geom_label(aes(label = 'Math Expected', x = 900, y =  15397), col = 'orange') 
 
 ```
 
@@ -75,12 +74,10 @@ g3_data <- data.frame('Rolls' = rolls,
                       'Result' = result)
 
 ggplot(g3_data, aes(x = Rolls, y = Result)) +
-geom_point(col = 'lightblue') +
-geom_smooth(col = 'lightgreen') +
+geom_point(col = 'lightgreen') +
 theme_classic() +
 geom_hline(yintercept = 16397, col = 'orange') +
-geom_label(aes(label = 'Math Expected', x = 90900, y =  15397), col = 'orange') +
-geom_label(aes(label = 'Monte-Carlo Expected', x = 10000, y = 10000), col = 'lightgreen')
+geom_label(aes(label = 'Math Expected', x = 90900, y =  15397), col = 'orange')
   
   
 ```
